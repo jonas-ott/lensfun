@@ -19,7 +19,7 @@
 #include <sys/malloc.h>
 #endif
 
-#include "common_code.hpp"
+#include "../common_code.hpp"
 
 //TODO: find better place for cTypeToLfPixelFormat()
 template<typename T>

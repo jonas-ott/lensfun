@@ -1,0 +1,8 @@
+{
+  "name": "build-dependencies",
+  "version-string": "0.0.1",
+  "dependencies": [
+    "glib",
+    "libpng"
+  ]
+}

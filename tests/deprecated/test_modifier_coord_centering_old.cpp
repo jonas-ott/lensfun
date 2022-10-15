@@ -25,7 +25,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
     lfFix->lens             = new lfLens();
     lfLensCalibDistortion calib_data = {
-        LF_DIST_MODEL_POLY3, 50.0f, 50.0f, false, {-0.1}
+        LF_DIST_MODEL_POLY3, 50.0f, 50.0f, false, {-0.1}, {}
     };
     lfFix->lens->AddCalibDistortion (&calib_data);
     lfFix->lens->CropFactor = 1.0f;

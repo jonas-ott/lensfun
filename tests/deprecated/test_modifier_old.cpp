@@ -17,10 +17,11 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 {
     lfFix->lens              = new lfLens();
     lfFix->lens->Type        = LF_RECTILINEAR;
-    lfFix->lens->CropFactor  = 1.0;
-    lfFix->lens->AspectRatio = 1.0;
+    lfLensCalibAttributes CalibAttr{1.0, 1.0};
+    lfFix->lens->CropFactor  = CalibAttr.CropFactor;
+    lfFix->lens->AspectRatio = CalibAttr.AspectRatio;
 
-    lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, 10.8f, false, {0.1}};
+    lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, 10.8f, false, {0.1}, CalibAttr};
     lfFix->lens->AddCalibDistortion(&lensCalibDist);
 
     // width and height have to be odd, so we have a non fractional center position

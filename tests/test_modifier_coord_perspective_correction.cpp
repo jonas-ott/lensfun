@@ -84,12 +84,12 @@ void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
     }
     dvector result = svd (M);
     const double epsilon = std::numeric_limits<double>::epsilon() * 5;
-    g_assert_cmpfloat (fabs (result [0] - 0.04756514941544937), <=, epsilon);
-    g_assert_cmpfloat (fabs (result [1] - 0.09513029883089875), <=, epsilon);
-    g_assert_cmpfloat (fabs (result [2] - 0.1902605976617977), <=, epsilon);
-    g_assert_cmpfloat (fabs (result [3] + 0.4280863447390447), <=, epsilon);
-    g_assert_cmpfloat (fabs (result [4] + 0.5707817929853928), <=, epsilon);
-    g_assert_cmpfloat (fabs (result [5] - 0.6659120918162917), <=, epsilon);
+    g_assert_cmpfloat (std::abs (result [0] - 0.04756514941544937), <=, epsilon);
+    g_assert_cmpfloat (std::abs (result [1] - 0.09513029883089875), <=, epsilon);
+    g_assert_cmpfloat (std::abs (result [2] - 0.1902605976617977), <=, epsilon);
+    g_assert_cmpfloat (std::abs (result [3] + 0.4280863447390447), <=, epsilon);
+    g_assert_cmpfloat (std::abs (result [4] + 0.5707817929853928), <=, epsilon);
+    g_assert_cmpfloat (std::abs (result [5] - 0.6659120918162917), <=, epsilon);
 }
 
 void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
@@ -109,8 +109,8 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
     for (int i = 0; i < 10; i++)
     {
         g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, coords));
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, epsilon);
     }
 }
 
@@ -131,8 +131,8 @@ void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
     for (int i = 0; i < 10; i++)
     {
         g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, coords));
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, epsilon);
     }
 }
 
@@ -153,8 +153,8 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
     for (int i = 0; i < 10; i++)
     {
         g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, coords));
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, epsilon);
     }
 }
 
@@ -188,8 +188,8 @@ void test_mod_coord_pc_5_points (lfFixture *lfFix, gconstpointer data)
     for (int i = 0; i < 10; i++)
     {
         g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, coords));
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, epsilon);
     }
 }
 
@@ -210,8 +210,8 @@ void test_mod_coord_pc_7_points (lfFixture *lfFix, gconstpointer data)
     for (int i = 0; i < 10; i++)
     {
         g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, coords));
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, epsilon);
     }
 }
 

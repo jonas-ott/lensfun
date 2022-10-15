@@ -111,7 +111,7 @@ void test_mod_coord_distortion_parallel(lfFixture *lfFix, gconstpointer data)
 gchar *describe(lfTestParams *p, const char *prefix)
 {
   gchar alignment[32] = "";
-  g_snprintf(alignment, sizeof(alignment), "%lu-byte", p->alignment);
+  g_snprintf(alignment, sizeof(alignment), "%zu-byte", p->alignment);
 
   return g_strdup_printf(
            "/%s/%s/%s/%s",
@@ -165,17 +165,17 @@ int main(int argc, char **argv)
     // ??? + Canon EF 85mm f/1.2L II USM
     distortCalib["LF_DIST_MODEL_POLY3"] = lfLensCalibDistortion
     {
-      LF_DIST_MODEL_POLY3, 85.0f, 85.3502f, false, { -0.00412f}
+      LF_DIST_MODEL_POLY3, 85.0f, 85.3502f, false, { -0.00412f}, {}
     };
     //Canon PowerShot G12 (fixed lens)
     distortCalib["LF_DIST_MODEL_POLY5"] = lfLensCalibDistortion
     {
-      LF_DIST_MODEL_POLY5, 6.1f, 6.1f, false, { -0.030571633f, 0.004658548f}
+      LF_DIST_MODEL_POLY5, 6.1f, 6.1f, false, { -0.030571633f, 0.004658548f}, {}
     };
     //Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
     distortCalib["LF_DIST_MODEL_PTLENS"] = lfLensCalibDistortion
     {
-      LF_DIST_MODEL_PTLENS, 24.0f, 24.46704f, false, {0.02964f, -0.07853f, 0.02943f}
+      LF_DIST_MODEL_PTLENS, 24.0f, 24.46704f, false, {0.02964f, -0.07853f, 0.02943f}, {}
     };
 
     for(std::map<std::string, lfLensCalibDistortion>::iterator it_distortCalib = distortCalib.begin(); it_distortCalib != distortCalib.end(); ++it_distortCalib)

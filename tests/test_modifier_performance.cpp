@@ -1,10 +1,7 @@
 #include <string>
-#include <limits>
-#include <map>
-#include <cmath>
-#include <locale>
 #include "xmmintrin.h"
-#include "time.h"
+#include <ctime>
+#include <locale>
 
 #include "lensfun.h"
 #include "../libs/lensfun/lensfunprv.h"
@@ -20,9 +17,8 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
-
     lfFix->db = new lfDatabase ();
-    lfFix->db->LoadDirectory("data/db");
+    lfFix->db->Load("data/db");
 
     lfFix->img_height = 4000;
     lfFix->img_width  = 6000;
@@ -30,31 +26,26 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
-    lfFix->db->Destroy();
+    delete lfFix->db;
 }
 
 // very simple nearest neighbour interpolation to simulate some memory access
-void interp_row_nearest(unsigned char** img, unsigned int row, unsigned int width, unsigned int height, float* coords)
+void interp_row_nearest(unsigned char** img, unsigned int row, unsigned int width, unsigned int height, const float* coords)
 {
-    for (int c = 0; c<width; c++)
+    for (unsigned int c = 0; c < width; c++)
     {
-        int x = coords[2*c];
-        int y = coords[2*c+1];
+        auto x = (unsigned int)coords[2*c];
+        auto y = (unsigned int)coords[2*c+1];
 
-        if (x < 0)
-            x = 0;
-        if (x>=width)
+        if (x >= width)
             x = width - 1;
-        if (y < 0)
-            y = 0;
-        if (y>=height)
+        if (y >= height)
             y = height - 1;
 
         img[row][3*c]   = img[y][3*x];
         img[row][3*c+1] = img[y][3*x+1];
         img[row][3*c+2] = img[y][3*x+2];
     }
-
 }
 
 void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
@@ -64,19 +55,20 @@ void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Pentax-F 28-80mm f/3.5-4.5");
 
-    lfModifier* mod = new lfModifier (lenses[0], 1.534f, lfFix->img_width, lfFix->img_height);
+    auto* mod = new lfModifier(lenses[0], 30.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32);
 
-    mod->Initialize (lenses[0], LF_PF_F32, 30.89f, 2.8f, 1000.0f, 10.0f, LF_RECTILINEAR,
-                            LF_MODIFY_DISTORTION, false);
-
+    mod->EnableDistortionCorrection();
+    mod->EnableVignettingCorrection(2.8f, 1000.0f);
+    mod->EnableProjectionTransform(LF_RECTILINEAR);
+    mod->EnableScaling(10.0f);
 
     unsigned char** img = (unsigned char**)_mm_malloc(lfFix->img_height*sizeof(unsigned char*), 32);
-    for (int r = 0; r < lfFix->img_height; r++)
+    for (size_t r = 0; r < lfFix->img_height; r++)
         img[r] = (unsigned char*)_mm_malloc(lfFix->img_width*sizeof(unsigned char)*3, 32);
 
     float *res = (float*)_mm_malloc(lfFix->img_width*sizeof(float)*2, 32);
     unsigned long start_time = clock();
-    for (int r = 0; r < lfFix->img_height; r++)
+    for (size_t r = 0; r < lfFix->img_height; r++)
     {
         mod->ApplyGeometryDistortion (0, r, lfFix->img_width, 1, res);
         interp_row_nearest(img, r, lfFix->img_width, lfFix->img_height, res);
@@ -85,7 +77,7 @@ void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     g_print("time elapsed : %.3fs,  ",run_time);
 
     _mm_free(res);
-    for (int r = 0; r < lfFix->img_height; r++) {
+    for (size_t r = 0; r < lfFix->img_height; r++) {
         _mm_free(img[r]);
     }
     _mm_free(img);

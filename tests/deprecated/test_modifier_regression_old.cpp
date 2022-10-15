@@ -1,5 +1,4 @@
 #include <string>
-#include <limits>
 #include <map>
 #include <cmath>
 #include <locale>
@@ -49,7 +48,7 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     float expected_y[] = {-9.3409109f, 497.0f, 938.96729f, 96.035286f};
 
     float coords [2];
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (size_t i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
@@ -81,7 +80,7 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
     float expected_y[] = {19.197506f, 497.0f, 933.42279f, 107.56808f};
 
     float coords [2];
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (size_t i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
@@ -111,7 +110,7 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     float expected_y[] = {19.339846f, 497.00046f, 927.90521f, 111.40639f};
 
     float coords [2];
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (size_t i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
@@ -140,13 +139,13 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     lf_u16 expected[] = {22406, 22406, 24156, 28803};
 
     lf_u16 coords [3] = {16000, 16000, 16000};
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (size_t i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         g_assert_true(mod->ApplyColorModification(&coords[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
         //g_print("\n%d, %d, %d\n", coords[0], coords[1], coords[2]);
-        g_assert_cmpfloat (fabs (coords [0] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
+        g_assert_cmpuint(coords[0], ==, expected[i]);
+        g_assert_cmpuint(coords[1], ==, expected[i]);
+        g_assert_cmpuint(coords[2], ==, expected[i]);
     }
 
     mod->Destroy();
@@ -175,7 +174,7 @@ void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
     };
 
     float coords [6];
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (size_t i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         g_assert_true(mod->ApplySubpixelDistortion(x[i], y[i], 1, 1, coords));
         //g_print("{%.8f, %.8f, %.8f, %.8f, %.8f, %.8f},\n", coords[0], coords[1], coords[2], coords[3], coords[4], coords[5]);
@@ -208,7 +207,7 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
         {1270.11572266f, 99.91123199f, 1270.00000000f, 100.00000763f, 1269.96374512f, 100.02780914f}
     };
 
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (size_t i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         float coords [6];
         g_assert_true(mod->ApplySubpixelDistortion (x[i], y[i], 1, 1, coords));
@@ -240,7 +239,7 @@ void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
     float expected_y[] = {165.80287f, 497.00003f, 880.88129f, 191.18344f};
 
     float coords [2];
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (size_t i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);

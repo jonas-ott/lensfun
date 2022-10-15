@@ -5,7 +5,6 @@
 #include <locale.h>
 
 #include <string>
-#include <limits>
 #include <cmath>
 #include <vector>
 
@@ -67,8 +66,8 @@ void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
     for (int i = 0; i < 10; i++)
     {
         g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, &coords [0]));
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, epsilon);
     }
 }
 
@@ -86,8 +85,8 @@ void test_mod_coord_distortion (lfFixture *lfFix, gconstpointer data)
     for (int i = 0; i < 10; i++)
     {
         g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, &coords [0]));
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, epsilon);
     }
 }
 

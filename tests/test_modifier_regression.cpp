@@ -1,5 +1,4 @@
 #include <string>
-#include <limits>
 #include <map>
 #include <cmath>
 #include <locale>
@@ -53,8 +52,8 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
     delete mod;
@@ -74,8 +73,8 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
     delete mod;
@@ -108,8 +107,8 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
     delete mod;
@@ -138,8 +137,8 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
     delete mod;
@@ -167,16 +166,16 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     {
         g_assert_true(mod->ApplyColorModification(&coords[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
         //g_print("\n%d, %d, %d\n", coords[0], coords[1], coords[2]);
-        g_assert_cmpfloat (fabs (coords [0] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
+        g_assert_cmpuint (coords [0], ==, expected [i]);
+        g_assert_cmpuint (coords [1], ==, expected [i]);
+        g_assert_cmpuint (coords [2], ==, expected [i]);
     }
 
     delete mod;
 
     // manually create a lens object
     lfLensCalibVignetting lensCalibVign;
-    lenses[0]->InterpolateVignetting(17.89f, 5.0f, 1000.0f, lensCalibVign);
+    lenses[0]->InterpolateVignetting(2.0f, 17.89f, 5.0f, 1000.0f, lensCalibVign);
     lfLens* lens = new lfLens();
     lens->AddCalibVignetting(&lensCalibVign);
     lens->CropFactor = lenses[0]->CropFactor;
@@ -190,9 +189,9 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     {
         g_assert_true(mod->ApplyColorModification(&coords[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
         //g_print("\n%d, %d, %d\n", coords[0], coords[1], coords[2]);
-        g_assert_cmpfloat (fabs (coords [0] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
+        g_assert_cmpuint (coords [0], ==, expected[i]);
+        g_assert_cmpuint (coords [1], ==, expected [i]);
+        g_assert_cmpuint (coords [2], ==, expected [i]);
     }
 
     delete mod;
@@ -228,7 +227,7 @@ void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
         g_assert_true(mod->ApplySubpixelDistortion(x[i], y[i], 1, 1, coords));
         //g_print("{%.8f, %.8f, %.8f, %.8f, %.8f, %.8f},\n", coords[0], coords[1], coords[2], coords[3], coords[4], coords[5]);
         for (int j = 0; j < 6; j++)
-            g_assert_cmpfloat (fabs (coords [j] - expected [i][j]), <=, 1e-3);
+            g_assert_cmpfloat (std::abs (coords [j] - expected [i][j]), <=, 1e-3);
     }
 
     delete mod;
@@ -262,14 +261,14 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
         g_assert_true(mod->ApplySubpixelDistortion (x[i], y[i], 1, 1, coords));
         //g_print("{%.8f, %.8f, %.8f, %.8f, %.8f, %.8f},\n", coords[0], coords[1], coords[2], coords[3], coords[4], coords[5]);
         for (int j = 0; j < 6; j++)
-            g_assert_cmpfloat (fabs (coords [j] - expected [i][j]), <=, 1e-3);
+            g_assert_cmpfloat (std::abs (coords [j] - expected [i][j]), <=, 1e-3);
     }
 
     delete mod;
 
     // manually create a lens object
     lfLensCalibTCA lensCalibTCA;
-    lenses[0]->InterpolateTCA(26.89f, lensCalibTCA);
+    lenses[0]->InterpolateTCA(2.0f, 26.89f, lensCalibTCA);
     lfLens* lens = new lfLens();
     lens->AddCalibTCA(&lensCalibTCA);
     lens->CropFactor = lenses[0]->CropFactor;
@@ -284,7 +283,7 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
         g_assert_true(mod->ApplySubpixelDistortion (x[i], y[i], 1, 1, coords));
         //g_print("{%.8f, %.8f, %.8f, %.8f, %.8f, %.8f},\n", coords[0], coords[1], coords[2], coords[3], coords[4], coords[5]);
         for (int j = 0; j < 6; j++)
-            g_assert_cmpfloat (fabs (coords [j] - expected [i][j]), <=, 1e-3);
+            g_assert_cmpfloat (std::abs (coords [j] - expected [i][j]), <=, 1e-3);
     }
 
     delete lens;
@@ -316,8 +315,8 @@ void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
-        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, 1e-1);
-        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-1);
+        g_assert_cmpfloat (std::abs (coords [0] - expected_x [i]), <=, 1e-3);
+        g_assert_cmpfloat (std::abs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
     delete mod;

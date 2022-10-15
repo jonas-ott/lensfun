@@ -111,7 +111,7 @@ void test_mod_subpix_parallel(lfFixture *lfFix, gconstpointer data)
 gchar *describe(lfTestParams *p, const char *prefix)
 {
   gchar alignment[32] = "";
-  g_snprintf(alignment, sizeof(alignment), "%lu-byte", p->alignment);
+  g_snprintf(alignment, sizeof(alignment), "%zu-byte", p->alignment);
 
   return g_strdup_printf(
            "/%s/%s/%s/%s",
@@ -165,12 +165,12 @@ int main(int argc, char **argv)
     // ??? + Nikon AF-S DX Nikkor 35mm f/1.8G
     tcaCalib["LF_TCA_MODEL_LINEAR"] = lfLensCalibTCA
     {
-      LF_TCA_MODEL_LINEAR, 35.0f, {1.0003f, 1.0003f}
+      LF_TCA_MODEL_LINEAR, 35.0f, {1.0003f, 1.0003f}, {}
     };
     // Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
     tcaCalib["LF_TCA_MODEL_POLY3"] = lfLensCalibTCA
     {
-      LF_TCA_MODEL_POLY3,  24.0f, {1.0002104f, 1.0000529f, 0.0f, 0.0f, -0.0000220f, -0.0000000f}
+      LF_TCA_MODEL_POLY3,  24.0f, {1.0002104f, 1.0000529f, 0.0f, 0.0f, -0.0000220f, -0.0000000f}, {}
     };
 
     for(std::map<std::string, lfLensCalibTCA>::iterator it_tcaCalib = tcaCalib.begin(); it_tcaCalib != tcaCalib.end(); ++it_tcaCalib)

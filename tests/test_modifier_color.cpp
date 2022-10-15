@@ -7,7 +7,6 @@
 #include <limits>
 
 #include <cstdlib>
-#include <cstdio>
 #include <cmath>
 
 #include "lensfun.h"
@@ -173,7 +172,7 @@ void test_mod_color_parallel(lfFixture *lfFix, gconstpointer data)
 gchar *describe(lfTestParams *p, const char *prefix, const char *f)
 {
   gchar alignment[32] = "";
-  g_snprintf(alignment, sizeof(alignment), "%lu-byte", p->alignment);
+  g_snprintf(alignment, sizeof(alignment), "%zu-byte", p->alignment);
 
   return g_strdup_printf(
            "/%s/%s/%s/%s/%s",

@@ -1524,7 +1524,6 @@ struct LF_EXPORT lfLens
         std::vector<lfLensCalibrationSet*> Calibrations;
         std::vector<char*> MountNames;
 
-        lfLensCalibrationSet* GetClosestCalibrationSet(const float crop) const;
         lfLensCalibrationSet* GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr);
 
         friend struct lfDatabase;

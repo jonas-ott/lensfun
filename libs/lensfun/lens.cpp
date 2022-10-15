@@ -635,22 +635,6 @@ const char *lfLens::GetLensTypeDesc (lfLensType type, const char **details)
     return NULL;
 }
 
-lfLensCalibrationSet* lfLens::GetClosestCalibrationSet(const float crop) const
-{
-    lfLensCalibrationSet* calib_set = nullptr;
-    float crop_ratio = 1e6f;
-    for (auto c : Calibrations)
-    {
-        const float r = crop / c->Attributes.CropFactor;
-        if ((r >= 0.96) && (r < crop_ratio))
-        {
-            crop_ratio = r;
-            calib_set = c;
-        }
-    }
-    return calib_set;
-}
-
 lfLensCalibrationSet* lfLens::GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr)
 {
     // Always use Calibrations[0] for now, achieves backwards

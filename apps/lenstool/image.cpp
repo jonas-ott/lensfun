@@ -201,9 +201,6 @@ bool Image::LoadPNG ()
     return true;
 }
 
-static inline int isqr (int x)
-{ return x * x; }
-
 bool Image::SavePNG (const char *fName)
 {
     /* Remove the file in the case it exists and it is a link */

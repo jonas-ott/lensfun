@@ -2,9 +2,13 @@ name: CMake-MSYS2
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - release_0.3.x
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - release_0.3.x
 
 env:
   BUILD_TYPE: Release

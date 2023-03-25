@@ -2,9 +2,13 @@ name: CMake-Windows
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - release_0.3.x
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - release_0.3.x
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)

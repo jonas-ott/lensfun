@@ -111,7 +111,7 @@ void test_mod_coord_distortion_parallel(lfFixture *lfFix, gconstpointer data)
 gchar *describe(lfTestParams *p, const char *prefix)
 {
   gchar alignment[32] = "";
-  g_snprintf(alignment, sizeof(alignment), "%lu-byte", p->alignment);
+  g_snprintf(alignment, sizeof(alignment), "%zu-byte", p->alignment);
 
   return g_strdup_printf(
            "/%s/%s/%s/%s",

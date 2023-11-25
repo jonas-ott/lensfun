@@ -58,10 +58,6 @@ struct RGBpixel
   /// Constructor (initialize to zero, alpha to 255)
   RGBpixel () /* : red(0), green(0), blue(0), alpha(255) {} */
   { *(unsigned *)this = (unsigned)~RGB_MASK; }
-  /// Copy constructor
-  RGBpixel (const RGBpixel& p)
-  /* : red (p.red), green (p.green), blue (p.blue), alpha (p.alpha) {} */
-  { *(unsigned *)this = *(unsigned *)&p; }
   /// Initialize the pixel with some R/G/B value
   RGBpixel (int r, int g, int b) :
     red (r), green (g), blue (b), alpha (255) {}

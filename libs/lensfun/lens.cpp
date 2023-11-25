@@ -6,8 +6,6 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
-#include <limits.h>
-#include <stdlib.h>
 #include <regex>
 #include <string.h>
 #include <locale.h>

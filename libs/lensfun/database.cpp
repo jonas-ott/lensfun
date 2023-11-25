@@ -8,7 +8,6 @@
 #include "lensfunprv.h"
 #include <fcntl.h>
 #include <errno.h>
-#include <stdlib.h>
 #include <locale.h>
 #include <glib/gstdio.h>
 #include <math.h>

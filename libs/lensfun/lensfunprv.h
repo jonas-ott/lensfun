@@ -21,28 +21,6 @@
 #define NEWTON_EPS 0.00001
 
 /**
- * @brief Return the absolute value of a number.
- * @param x
- *     A number
- * @return
- *     The absolute value of x
- */
-template<typename T> static inline T absolute (T x)
-{
-    return (x < 0) ? -x : x;
-}
-
-/**
- * @brief Return the square of the argument.
- * @param x
- *     A floating-point number.
- */
-template<typename T> static inline T square (T x)
-{
-    return x * x;
-}
-
-/**
  * @brief Clamp a double value between 0 and max, then convert to given type.
  * @param x
  *     The number to clamp.

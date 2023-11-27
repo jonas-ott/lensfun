@@ -1,6 +1,7 @@
 #include <string>
 #include "xmmintrin.h"
 #include <ctime>
+#include <locale>
 
 #include "lensfun.h"
 #include "../libs/lensfun/lensfunprv.h"
